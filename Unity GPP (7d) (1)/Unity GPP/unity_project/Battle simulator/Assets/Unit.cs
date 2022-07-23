@@ -24,6 +24,10 @@ public class Unit : MonoBehaviour
     {
 
     }
+    public void GettingAttacked()
+    {
+
+    }
 
     public void MoveToward(GameObject target)
     {
