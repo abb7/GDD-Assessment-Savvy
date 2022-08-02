@@ -31,27 +31,23 @@ public class JsonHelper : MonoBehaviour
 
     public static T[] FromJson<T>(string json)
     {
-        Wrappers<T> wrapper = JsonUtility.FromJson<Wrappers<T>>(json);
-        return wrapper.Item;
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.array;
     }
 
     public static string ToJson<T>(T[] array)
     {
-        Wrappers<T> wrapper = new Wrappers<T>();
-        wrapper.Item = array;
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.array = array;
         return JsonUtility.ToJson(wrapper);
     }
 
     public static string ToJson<T>(T[] array, bool prettyPrint)
     {
-        Wrappers<T> wrapper = new Wrappers<T>();
-        wrapper.Item = array;
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.array = array;
         return JsonUtility.ToJson(wrapper, prettyPrint);
     }
 
-    [Serializable]
-    private class Wrappers<T>
-    {
-        public T[] Item;
-    }
+
 }
