@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - TeamManager
+  - BlueTeam
+  - RedTeam
   layers:
   - Default
   - TransparentFX

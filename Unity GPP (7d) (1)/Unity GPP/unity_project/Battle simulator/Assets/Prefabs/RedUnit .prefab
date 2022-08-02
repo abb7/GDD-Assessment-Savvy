@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2238194907955800950}
   m_Layer: 0
   m_Name: 'RedUnit '
-  m_TagString: Untagged
+  m_TagString: RedTeam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,6 +113,8 @@ MonoBehaviour:
   attackSpeed: 0
   attackRange: 0
   movementSpeed: 0
+  target: {fileID: 0}
+  opponentTag: BlueTeam
 --- !u!1 &2238194908310836814
 GameObject:
   m_ObjectHideFlags: 0
