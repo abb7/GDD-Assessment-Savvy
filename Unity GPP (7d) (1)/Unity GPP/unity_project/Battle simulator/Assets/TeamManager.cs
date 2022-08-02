@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.UI;
 
 public class TeamManager : MonoBehaviour
 {
@@ -21,6 +22,12 @@ public class TeamManager : MonoBehaviour
     bool isTeamsAreFormed;
 
     public Team[] teams;
+    public Transform playerUnitParent;
+    public Transform enemyUnitParent;
+    //UI Construction
+    public GameObject UI_TeamContainer;
+    public GameObject teamButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,13 +54,16 @@ public class TeamManager : MonoBehaviour
 
 
     //Create a specific team formation for the enemy team
-    public void ConstructTeam(GameObject prefab, float xStart, float yStart, int id)
+    public void ConstructTeam(GameObject prefab, float xStart, float yStart, int id, Transform parent)
     {
 
         for (int i = 0; i < columnLength * rowLength; i++)
         {
-            if(teams[id].teamFormation[i])
-                Instantiate(prefab, new Vector3(xStart+(x_space * (i % columnLength)),1 , -yStart+(y_space * (i / columnLength))), Quaternion.identity);
+            if (teams[id].teamFormation[i])
+            {
+                GameObject unit = Instantiate(prefab, new Vector3(xStart + (x_space * (i % columnLength)), 1, -yStart + (y_space * (i / columnLength))), Quaternion.identity);
+                unit.transform.SetParent(parent);
+            }
         }
         isTeamsAreFormed = true;
     }
@@ -68,7 +78,11 @@ public class TeamManager : MonoBehaviour
             LoadTeamFormation(1);
 
             //create enemy Team Formation UI
-
+            for (int i = 1; i< teams.Length; i++)
+            {
+                GameObject newButton = Instantiate(teamButton, UI_TeamContainer.transform);
+                newButton.GetComponent<TeamFormationButton>().setText(i);
+            }
         }
     }
 
@@ -76,13 +90,20 @@ public class TeamManager : MonoBehaviour
     {
         if (id == 0)
         {
-            ConstructTeam(Player, -9, 2, id);
+            ConstructTeam(Player, -9, 2, id, playerUnitParent);
         }
         else
         {
-            ConstructTeam(enemy, 5, 2, id);
+            ConstructTeam(enemy, 5, 2, id, enemyUnitParent);
         }
-        //teams[id]
+    }
+
+    public void ResetEnemyFormation()
+    {
+        foreach (Transform child in enemyUnitParent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
 
