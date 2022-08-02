@@ -9,10 +9,11 @@ public class TeamManager : MonoBehaviour
     public GameObject Player;
     public GameObject enemy;
     public int availableTroops;
+    bool isTeamsAreFormed;
     // Start is called before the first frame update
     void Start()
     {
-        StartBattle();
+        isTeamsAreFormed = false;
     }
 
     // Update is called once per frame
@@ -23,7 +24,10 @@ public class TeamManager : MonoBehaviour
 
     public void StartBattle()
     {
-        
+        if (isTeamsAreFormed)
+        {
+
+        }
 
     }
 
@@ -34,5 +38,16 @@ public class TeamManager : MonoBehaviour
         {
             Instantiate(Player, new Vector3(x_space * (i % columnLength), y_space * (i % columnLength)), Quaternion.identity);
         }
+        isTeamsAreFormed = true;
+    }
+
+    public void ConstructTeamFormationUI()
+    {
+
+    }
+
+    public void LoadTeamFormation(int id)
+    {
+
     }
 }
