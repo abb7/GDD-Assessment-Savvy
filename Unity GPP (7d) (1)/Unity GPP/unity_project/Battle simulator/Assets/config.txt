@@ -1,0 +1,88 @@
+{
+  "Item": [
+    {
+      "teamId": 0,
+      "teamFormation": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "teamId": 1,
+      "teamFormation": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "teamId": 2,
+      "teamFormation": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "teamId": 3,
+      "teamFormation": [
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "teamId": 4,
+      "teamFormation": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "teamId": 5,
+      "teamFormation": [
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false
+      ]
+    }
+  ]
+}
