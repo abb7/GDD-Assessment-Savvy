@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
+        
         if(attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
@@ -40,12 +41,12 @@ public class Unit : MonoBehaviour
                 target = FindTarget();
             else
             {
-                MoveToward(target);
-                if(Vector3.Distance(transform.position, target.position) <= attackRange + 0.1f && attackTimer == 0)
-                {
-                    Attack();
-                }
+                MoveToward(target);   
             }
+        }
+        if (target && Vector3.Distance(transform.position, target.position) <= attackRange + 0.1f && attackTimer == 0)
+        {
+            Attack();
         }
     }
 
@@ -61,14 +62,19 @@ public class Unit : MonoBehaviour
 
     public void Attack()
     {
-        target.SendMessage("GettingAttacked", attack, SendMessageOptions.DontRequireReceiver);
+        Attacker attacker = new Attacker(attack, transform);
+        target.SendMessage("GettingAttacked", attacker, SendMessageOptions.DontRequireReceiver);
         attackTimer = attackSpeed;
     }
-    public void GettingAttacked(int damege)
+    public void GettingAttacked(Attacker attacker)
     {
-        if(HP > damege)
+        if(tag == "RedTeam")
+            if (target == null)
+                target = attacker.attackerTransform;
+
+        if(HP > attacker.damege)
         {
-            HP -= damege;
+            HP -= attacker.damege;
             UI_HP.text = HP.ToString();
         }
 
@@ -89,5 +95,18 @@ public class Unit : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+    }
+
+    public class Attacker
+    {
+        
+        public int damege;
+        public Transform attackerTransform;
+
+        public Attacker(int d, Transform t)
+        {
+            damege = d;
+            attackerTransform = t;
+        }
     }
 }
