@@ -37,21 +37,6 @@ public class TeamManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void StartBattle()
-    {
-        if (isTeamsAreFormed)
-        {
-
-        }
-
-    }
-
 
     //Create a specific team formation for the enemy team
     public void ConstructTeam(GameObject prefab, float xStart, float yStart, int id, Transform parent)
@@ -104,6 +89,29 @@ public class TeamManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void ResetPlayerFormation()
+    {
+        foreach (Transform child in playerUnitParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ResetUIFormation()
+    {
+        foreach (Transform child in UI_TeamContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    public void ResetTeamFormation()
+    {
+        ResetEnemyFormation();
+        ResetPlayerFormation();
+        ResetUIFormation();
+        ConstructTeamFormationUI();
     }
 
 

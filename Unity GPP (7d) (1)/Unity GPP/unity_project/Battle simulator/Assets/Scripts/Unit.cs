@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public string opponentTag;
     private float attackTimer;
     TextMeshPro UI_HP;
+    private GameManager gameManager;
     private void Start()
     {
         HP = 100;
@@ -22,11 +23,13 @@ public class Unit : MonoBehaviour
         attackRange = Random.Range(0.5f, 2);
         movementSpeed = Random.Range(1, 4);
         UI_HP = GetComponentInChildren<TextMeshPro>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
     private void Update()
     {
-        
+        if (!gameManager.gameState)
+            return;
         if(attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
@@ -37,7 +40,7 @@ public class Unit : MonoBehaviour
         }
         if (gameObject.tag == "BlueTeam")
         {
-            if (target == null)
+            if (target == null )
                 target = FindTarget();
             else
             {
@@ -52,10 +55,12 @@ public class Unit : MonoBehaviour
 
     private Transform FindTarget()
     {
+       
         //find units 
         GameObject[] targets;
         targets = GameObject.FindGameObjectsWithTag(opponentTag);
-
+        if (targets.Length <= 0)
+            return null;
         
         return targets[Random.Range(0, targets.Length)].transform;
     }
@@ -81,7 +86,7 @@ public class Unit : MonoBehaviour
         else
         {
             HP = 0;
-            Die();
+            Die(tag);
         }
     }
 
@@ -92,8 +97,9 @@ public class Unit : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed*Time.deltaTime);
     }
 
-    public void Die()
+    public void Die(string tag)
     {
+        gameManager.reportDyingUnits(tag);
         Destroy(gameObject);
     }
 
@@ -109,4 +115,6 @@ public class Unit : MonoBehaviour
             attackerTransform = t;
         }
     }
+
+   
 }
